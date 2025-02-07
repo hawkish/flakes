@@ -2,29 +2,29 @@
   description = "Demo Nix dev environment";
 
   inputs = {
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-
-    # 3.12.0 release
-    python-nixpkgs.url = "github:NixOS/nixpkgs/e2b8feae8470705c3f331901ae057da3095cea10";
   };
 
   outputs =
     {
       self,
+      nixpkgs,
       flake-utils,
-      python-nixpkgs,
-    }@inputs:
+    }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        python-nixpkgs = inputs.python-nixpkgs.legacyPackages.${system};
+        pkgs = nixpkgs.legacyPackages.${system};
       in
       {
-        devShells.default = python-nixpkgs.mkShell {
+        devShells.default = pkgs.mkShell {
           packages = [
-            python-nixpkgs.python312
+            (pkgs.python3.withPackages (python-pkgs: [
+              python-pkgs.pandas
+              python-pkgs.requests
+            ]))
           ];
-
           shellHook = ''
             python --version
           '';
