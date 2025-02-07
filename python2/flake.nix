@@ -16,9 +16,8 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
       in
-      with pkgs;
       {
-        devShells.default = mkShell {
+        devShells.default = pkgs.mkShell {
           packages = [
             (pkgs.python3.withPackages (python-pkgs: [
               python-pkgs.pandas
