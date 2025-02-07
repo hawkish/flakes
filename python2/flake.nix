@@ -20,9 +20,11 @@
       {
         devShells.default = mkShell {
           packages = [
-            pkgs.python2
+            (pkgs.python3.withPackages (python-pkgs: [
+              python-pkgs.pandas
+              python-pkgs.requests
+            ]))
           ];
-
           shellHook = ''
             python --version
           '';
