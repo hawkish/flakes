@@ -1,5 +1,5 @@
 {
-  description = "Demo Nix dev environment";
+  description = "Python 3 dev environment";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
@@ -20,13 +20,15 @@
       {
         devShells.default = pkgs.mkShell {
           packages = [
+            pkgs.zsh
             (pkgs.python3.withPackages (python-pkgs: [
               python-pkgs.pandas
               python-pkgs.requests
             ]))
           ];
           shellHook = ''
-            python --version
+            export SHELL=$(which zsh)
+            exec zsh
           '';
         };
       }
