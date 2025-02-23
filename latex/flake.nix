@@ -22,6 +22,9 @@
             pgf
             nicematrix
             fontspec
+            wrapfig
+            sectsty
+            babel-danish
             ;
         };
 
@@ -45,6 +48,7 @@
               export PATH="${pkgs.lib.makeBinPath buildInputs}";
               mkdir -p .cache/texmf-var
               env TEXMFHOME=.cache TEXMFVAR=.cache/texmf-var \
+                  SOURCE_DATE_EPOCH=${toString self.lastModified} \
                   OSFONTDIR=${pkgs.fira-code}/share/fonts \
                 latexmk -interaction=nonstopmode -pdf -lualatex \
                 document.tex
