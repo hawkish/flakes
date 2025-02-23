@@ -18,7 +18,7 @@
         tex = pkgs.texlive.combine {
           inherit (pkgs.texlive)
             scheme-basic
-            latexxmk
+            latexmk
             pgf
             nicematrix
             fontspec
