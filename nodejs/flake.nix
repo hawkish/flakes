@@ -30,6 +30,7 @@
 
             pkgs.nodePackages.typescript
             pkgs.nodePackages.typescript-language-server
+            pkgs.nodePackages.claude-code
           ];
 
           shellHook = ''
