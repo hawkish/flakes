@@ -17,11 +17,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = [
             pkgs.zsh
-            pkgs.nodejs
-
-            # You can set the major version of Node.js to a specific one instead
-            # of the default version
-            # pkgs.nodejs-22_x
+            pkgs.nodejs_22
 
             # Comment out one of these to use an alternative package manager.
             # pkgs.yarn
@@ -33,8 +29,6 @@
           ];
 
           shellHook = ''
-            export SHELL=$(which zsh)
-            exec zsh 
             if [ ! -d "node_modules" ]; then
                 echo "Installing npm dependencies..."
                 npm install
