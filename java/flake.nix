@@ -17,7 +17,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = [
             pkgs.zsh
-            pkgs.jdk17
+            pkgs.jdk21  # Updated to JDK 21 (current LTS, required for jdt-language-server)
 
             # Build tools - uncomment the one you want to use
             pkgs.gradle
@@ -25,10 +25,16 @@
 
             # Language server for IDE support
             pkgs.jdt-language-server
+
+            # Optional: Code formatting and additional tools
+            # pkgs.google-java-format
           ];
 
           shellHook = ''
-            export JAVA_HOME=${pkgs.jdk17}
+            export JAVA_HOME=${pkgs.jdk21}
+            export NIX_LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [
+              pkgs.stdenv.cc.cc
+            ]}
             echo "Java development environment loaded"
             echo "JAVA_HOME: $JAVA_HOME"
             echo "Java version: $(java -version 2>&1 | head -n 1)"
