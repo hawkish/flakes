@@ -26,10 +26,6 @@
               python-pkgs.requests
             ]))
           ];
-          shellHook = ''
-            export SHELL=$(which zsh)
-            exec zsh
-          '';
         };
       }
     );
