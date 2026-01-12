@@ -19,16 +19,27 @@
             pkgs.zsh
             pkgs.go
 
-            # Go tools
-            pkgs.gopls
-            pkgs.gotools
-            pkgs.go-tools
+            # Go language server and core tools
+            pkgs.gopls  # Language server with LSP support
+            pkgs.gotools  # Includes goimports
+            pkgs.go-tools  # Additional staticcheck analyzers
+
+            # Optional development tools
+            pkgs.golangci-lint  # Fast linter runner
+            pkgs.delve  # Debugger
           ];
 
           shellHook = ''
-            if [ -f "go.mod" ] && [ ! -d "vendor" ]; then
-                echo "Downloading Go dependencies..."
-                go mod download
+            echo "Go development environment loaded"
+            echo "Go version: $(go version)"
+            echo "Tools available: gopls, golangci-lint, delve"
+
+            if [ -f "go.mod" ]; then
+                echo "Go module detected"
+                if [ ! -d "vendor" ]; then
+                    echo "Downloading Go dependencies..."
+                    go mod download
+                fi
             fi
           '';
         };

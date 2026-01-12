@@ -62,6 +62,8 @@
             haskellPackages.cabal-install
             haskellPackages.ghcid
             haskellPackages.ormolu
+            haskellPackages.haskell-language-server
+            haskellPackages.hlint
             tmux
           ];
         };

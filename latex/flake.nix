@@ -1,7 +1,7 @@
 {
   description = "LaTeX Document based on https://flyx.org/nix-flakes-latex/";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs =
@@ -61,6 +61,19 @@
         };
 
         defaultPackage = packages.document;
+
+        devShells.default = pkgs.mkShell {
+          buildInputs = [
+            pkgs.zsh
+            tex
+            pkgs.texlab  # LaTeX language server
+          ];
+
+          shellHook = ''
+            echo "LaTeX development environment loaded"
+            echo "TeX Live packages available"
+          '';
+        };
       }
     );
 }
