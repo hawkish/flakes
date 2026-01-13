@@ -45,6 +45,11 @@ This repository contains ready-to-use Nix flakes for various programming languag
 - **Tooling**: pyright, ruff, pytest, pytest-cov
 - **Features**: Virtual environment creation, modern linting/formatting
 
+### Rust
+- **Version**: Latest Rust
+- **Tooling**: rust-analyzer, clippy, rustfmt, cargo-watch, cargo-edit
+- **Features**: Cargo project detection, auto-rebuild on changes, dependency management
+
 ## Usage
 
 ### Quick Start

@@ -48,16 +48,25 @@ This document tracks improvements and additions made to the flakes repository.
 - Enhanced shellHook with automatic virtual environment creation
 - Added informative version output
 
+### Rust Flake
+- Created new Rust development flake with latest Rust toolchain
+- Added rust-analyzer (language server) for IDE support
+- Added clippy for linting and catching common mistakes
+- Added rustfmt for code formatting
+- Added cargo-watch for auto-rebuild on file changes
+- Added cargo-edit for easy dependency management (cargo add/rm/upgrade)
+- Enhanced shellHook with Cargo project detection and version info
+
 ### direnv Integration
-- Added .envrc files to all flakes (haskell, latex, nodejs, python3, go, clojure)
+- Added .envrc files to all flakes (haskell, latex, nodejs, python3, go, clojure, rust)
 - Enables automatic environment loading when entering directories
 
 ## Best Practices Applied
 
 All flakes follow modern 2025-2026 best practices:
 
-1. **Language Servers**: Each flake includes appropriate language server (gopls, clojure-lsp, jdt-language-server, haskell-language-server, texlab, typescript-language-server, pyright)
-2. **Modern Tooling**: Up-to-date tools like ruff for Python, golangci-lint for Go
+1. **Language Servers**: Each flake includes appropriate language server (gopls, clojure-lsp, jdt-language-server, haskell-language-server, texlab, typescript-language-server, pyright, rust-analyzer)
+2. **Modern Tooling**: Up-to-date tools like ruff for Python, golangci-lint for Go, clippy for Rust
 3. **Informative Shell Hooks**: Version information and project detection
 4. **Consistent Structure**: Using nixpkgs-unstable, flake-utils, and systems inputs
 5. **direnv Support**: .envrc files for automatic environment activation
@@ -72,7 +81,8 @@ flakes/
 ├── java/          # Java with JDK 21, jdt-language-server, gradle
 ├── latex/         # LaTeX with texlive, texlab
 ├── nodejs/        # Node.js 22 with typescript, prettier, eslint
-└── python3/       # Python 3 with pyright, ruff, pytest
+├── python3/       # Python 3 with pyright, ruff, pytest
+└── rust/          # Rust with rust-analyzer, clippy, rustfmt, cargo-watch
 ```
 
 Each flake provides a complete development environment for its respective language with appropriate tooling for modern development workflows.
