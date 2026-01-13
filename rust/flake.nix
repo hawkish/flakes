@@ -21,13 +21,15 @@
             pkgs.cargo
 
             # Rust language server and core tools
-            pkgs.rust-analyzer  # Language server with LSP support
-            pkgs.clippy  # Linter for catching common mistakes
-            pkgs.rustfmt  # Code formatter
+            pkgs.rust-analyzer # Language server with LSP support
+            pkgs.clippy # Linter for catching common mistakes
+            pkgs.rustfmt # Code formatter
+
+            pkgs.evcxr # For conjure Rust REPL support
 
             # Optional development tools
-            pkgs.cargo-watch  # Auto-rebuild on file changes
-            pkgs.cargo-edit  # cargo add/rm/upgrade commands
+            pkgs.cargo-watch # Auto-rebuild on file changes
+            pkgs.cargo-edit # cargo add/rm/upgrade commands
           ];
 
           shellHook = ''
