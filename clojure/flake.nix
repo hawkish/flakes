@@ -16,7 +16,6 @@
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
-            pkgs.zsh
             pkgs.clojure
 
             # Build tools - uncomment the one you want to use

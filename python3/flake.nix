@@ -20,7 +20,6 @@
       {
         devShells.default = pkgs.mkShell {
           packages = [
-            pkgs.zsh
             (pkgs.python3.withPackages (python-pkgs: [
               # Add your project dependencies here
               python-pkgs.pandas

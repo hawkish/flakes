@@ -16,7 +16,6 @@
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
-            pkgs.zsh
             pkgs.rustc
             pkgs.cargo
 

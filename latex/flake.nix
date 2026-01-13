@@ -64,7 +64,6 @@
 
         devShells.default = pkgs.mkShell {
           buildInputs = [
-            pkgs.zsh
             tex
             pkgs.texlab  # LaTeX language server
           ];

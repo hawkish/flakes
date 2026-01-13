@@ -16,7 +16,6 @@
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
-            pkgs.zsh
             pkgs.jdk21  # Updated to JDK 21 (current LTS, required for jdt-language-server)
 
             # Build tools - uncomment the one you want to use

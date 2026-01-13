@@ -16,7 +16,6 @@
       {
         devShells.default = pkgs.mkShell {
           buildInputs = [
-            pkgs.zsh
             pkgs.nodejs_22  # Use nodejs_23 or nodejs_24 when available for latest LTS
 
             # Package managers - uncomment the one you want to use
