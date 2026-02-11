@@ -2,42 +2,58 @@
   description = "Java dev environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    systems.url = "github:nix-systems/default";
   };
-  outputs =
-    { nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (
-      system:
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
       in
       {
         devShells.default = pkgs.mkShell {
-          buildInputs = [
-            pkgs.jdk21  # Updated to JDK 21 (current LTS, required for jdt-language-server)
+          buildInputs = with pkgs; [
+            # Java 21 required by build.gradle
+            temurin-bin-21
 
-            # Build tools - uncomment the one you want to use
-            pkgs.gradle
-            # pkgs.maven
+            # Build tools
+            gradle
 
-            # Language server for IDE support
-            pkgs.jdt-language-server
-
-            # Optional: Code formatting and additional tools
-            # pkgs.google-java-format
+            # Utilities
+            jq
           ];
 
           shellHook = ''
-            export JAVA_HOME=${pkgs.jdk21}
-            export NIX_LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [
-              pkgs.stdenv.cc.cc
-            ]}
-            echo "Java development environment loaded"
-            echo "JAVA_HOME: $JAVA_HOME"
-            echo "Java version: $(java -version 2>&1 | head -n 1)"
-            echo "Gradle version: $(gradle -version 2>&1 | grep Gradle)"
+            # Java paths
+            export JAVA_HOME="${pkgs.temurin-bin-21}"
+
+            # Gradle paths
+            export GRADLE_HOME="${pkgs.gradle}"
+
+            # Use local .gradle folder instead of ~/.gradle
+            export GRADLE_USER_HOME="$PWD/.gradle"
+            mkdir -p "$GRADLE_USER_HOME"
+
+            echo "🚀 tok-integrationtest development environment loaded"
+            echo ""
+            echo "Java:"
+            echo "  JAVA_HOME=$JAVA_HOME"
+            echo "  Version: $(java --version | head -1)"
+            echo ""
+            echo "Gradle:"
+            echo "  GRADLE_HOME=$GRADLE_HOME"
+            echo "  GRADLE_USER_HOME=$GRADLE_USER_HOME"
+            echo "  Version: $(gradle --version | grep 'Gradle' | head -1)"
+            echo ""
+            echo "Run tests with:"
+            echo "  export JOB_NAME=StubLoginBrowserlessTest"
+            echo "  export TEST_ENVIRONMENT=dev"
+            echo "  ./gradlew test -PAutotestPOC"
+            echo ""
           '';
         };
       }
