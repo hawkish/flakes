@@ -24,18 +24,16 @@
             # pkgs.bun
 
             # Development tools
-            pkgs.nodePackages.typescript
-            pkgs.nodePackages.typescript-language-server
-            pkgs.nodePackages.prettier
-            pkgs.nodePackages.eslint
-            pkgs.nodePackages.claude-code
-          ];
+            pkgs.typescript
+            pkgs.typescript-language-server
+            pkgs.prettier
+            pkgs.eslint          ];
 
           shellHook = ''
             echo "Node.js development environment loaded"
             echo "Node version: $(node --version)"
             echo "npm version: $(npm --version)"
-            if [ ! -d "node_modules" ]; then
+            if [ -f "package.json" ] && [ ! -d "node_modules" ]; then
                 echo "Installing npm dependencies..."
                 npm install
             fi
